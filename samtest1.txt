@@ -1,0 +1,47 @@
+*** Settings ***
+Library           Selenium2Library
+Resource          Resource/Test/Test百度搜索.txt
+Resource          resource/fumubangtest/test.txt
+
+*** Test Cases ***
+open browser
+    [Documentation]    *test* _link_
+    Open Browser    ${url}    firefox
+
+login
+    open browser    http://www.fumubang.net    firefox
+    click element    //li[@class="login_none"]/a
+    sleep    1s
+    select frame    //iframe[contains(@src,'http://passport.fumubang.net')]
+    input text    xpath=/html/body/div/div[2]/div/form/div/div[1]/div[1]/div[1]/input    15000000000
+    input text    xpath=/html/body/div/div[2]/div/form/div/div[1]/div[1]/div[2]/input    test123
+    click button    id=loginBtn
+    unselect frame
+    input text    id=search_key    sam
+    click element    id=search_btn
+
+baidu test
+    百度搜索    aaaa    aaaa
+
+search case
+    test_openbrowser    http://www.fumubang.net    firefox
+    test_login-popup    15000000000    test123
+    test_search    sam rf
+    sleep    3s
+    click element    //ul[@class='list3 listitem']/li/a
+
+mouse over test
+    test_openbrowser    http://www.fumubang.net    firefox
+    mouse over    //a[@class='categorys-a']
+    mouse over    //div[contains(@data-href,'pc17_c17')]
+
+test
+    test_openbrowser    http://www.fumubang.net    firefox
+    Comment    test_search    sam rf
+    Comment    page should contain    dafdasf
+    Comment    click element    //ul[@class='list3 listitem']/li/a
+    open
+
+register
+    open browser    http://www.fumubang.net    firefox
+    click element    //a[contains(@href,'http://passport.fumubang.net/signup')]
