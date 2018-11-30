@@ -1,0 +1,10 @@
+*** Keywords ***
+百度搜索
+    [Arguments]    ${search}    ${result}
+    open browser    http://www.baidu.com
+    input text    //*[@id='kw']    ${search}
+    click button    id=su
+    sleep    20
+    ${title}    get title
+    should contain    ${title}    ${result}
+    close browser

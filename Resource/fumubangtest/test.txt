@@ -1,0 +1,47 @@
+*** Keywords ***
+test_login-popup
+    [Arguments]    ${username}    ${password}
+    click element    //li[@class="login_none"]/a
+    select frame    //iframe[contains(@src,'http://passport.fumubang.net')]
+    sleep    1s
+    input text    xpath=/html/body/div/div[2]/div/form/div/div[1]/div[1]/div[1]/input    ${username}
+    input text    xpath=/html/body/div/div[2]/div/form/div/div[1]/div[1]/div[2]/input    ${password}
+    click button    id=loginBtn
+    unselect frame
+
+test_search
+    [Arguments]    ${search_keyword}
+    input text    id=search_key    ${search_keyword}
+    click element    id=search_btn
+
+test_openbrowser
+    [Arguments]    ${testurl}    ${testbrowser}
+    Open Browser    ${testurl}    ${testbrowser}
+
+test_receiver_info
+    ${receiver}    get value    id=receiver
+    Run keyword if    "${receiver}"!=""    log    收货人姓名已存    ELSE    input text    id=receiver
+    ...    JYX
+    ${receivernum}    get value    id=mobile
+    Run keyword if    "${receivernum}"!=""    log    号码已经存在    ELSE    input text    id=mobile
+    ...    13811117893
+
+test_login-fullscreen
+    [Arguments]    ${username}    ${password}
+    input text    id=email    ${username}
+    input text    id=passwd    ${password}
+    click button    //input[@class='login_login fl']
+
+test_logout
+    mouse over    //li[@class='user_info_name']
+    click element    //li[@class='user_login']
+
+test_login-checkin
+    [Arguments]    ${username}    ${password}
+    test_login-popup    ${username}    ${password}
+    sleep    2
+    click element    //li[@class='open_jl']
+    sleep    2
+    ${checkin}    get text    id=dkqd_main_x
+    Run keyword if    "${checkin}"="打卡有礼"    click element    //a[@id='dkqd_main_x']    ELSE    log    已打卡
+    sleep    1
