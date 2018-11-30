@@ -1,4 +1,4 @@
-*** Settings ***
+﻿*** Settings ***
 Library           Selenium2Library
 Resource          Resource/Test/Test百度搜索.txt
 Resource          resource/fumubangtest/test.txt
@@ -6,7 +6,7 @@ Resource          resource/fumubangtest/test.txt
 *** Test Cases ***
 open browser
     [Documentation]    *test* _link_
-    Open Browser    ${url}    firefox
+    Open Browser    ${url}    chrome
 
 login
     open browser    http://www.fumubang.net    firefox
